@@ -1,0 +1,22 @@
+/* 修复层级问题 */
+body::before {
+    z-index: 0;  /* 从-1改为0，避免被其他元素覆盖 */
+  }
+  
+  .index-banner .slogan {
+    position: relative;
+    z-index: 2 !important;  /* 提升优先级 */
+  }
+  
+  /* 强化新增文字样式 */
+  #page-header.index-banner .slogan::after {
+    content: "成功只有一个，按照自己的方式，去度过人生" !important;
+    display: block !important;
+    font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    font-size: 1.4rem;
+    color: rgba(0,0,0,0.9) !important;
+    margin-top: 1.2rem;
+    text-shadow: 1px 1px 3px rgba(255,255,255,0.5);
+    position: relative;
+    z-index: 3 !important;
+  }
