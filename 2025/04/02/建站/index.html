@@ -19,15 +19,15 @@
   <meta name="author" content="归潇">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一、Hexo 建站完整步骤1. 初始化项目">
+    <meta name="description" content="一、Hexo 建站完整步骤1. 安装 安装node.js   我装过，做大一年度项目的时候装的，前后端分离，当时不知道Java和Javaicript不是同一个东西，第一版做的稀烂，用过node.js。那时候该记下来环境怎么配置的。 安装git  也装过，git bash不好使，我git用的就不熟练，得练，记不住，别再每次使ai查了。 安装hexo  $ npm install -g hexo-cl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo建站经验">
 <meta property="og:url" content="https://guoxiyao.github.io/2025/04/02/%E5%BB%BA%E7%AB%99/index.html">
 <meta property="og:site_name" content="归潇">
-<meta property="og:description" content="一、Hexo 建站完整步骤1. 初始化项目">
+<meta property="og:description" content="一、Hexo 建站完整步骤1. 安装 安装node.js   我装过，做大一年度项目的时候装的，前后端分离，当时不知道Java和Javaicript不是同一个东西，第一版做的稀烂，用过node.js。那时候该记下来环境怎么配置的。 安装git  也装过，git bash不好使，我git用的就不熟练，得练，记不住，别再每次使ai查了。 安装hexo  $ npm install -g hexo-cl">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-04-01T16:40:11.000Z">
-<meta property="article:modified_time" content="2025-04-02T00:15:23.400Z">
+<meta property="article:modified_time" content="2025-04-02T05:32:44.084Z">
 <meta property="article:author" content="归潇">
 <meta property="article:tag" content="杂物堆">
 <meta name="twitter:card" content="summary_large_image">
@@ -66,6 +66,11 @@
     <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
+
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/override.css">
 
 
 
@@ -241,7 +246,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          13 字
+          1.1k 字
         
       </span>
     
@@ -252,7 +257,7 @@
         
         
         
-          1 分钟
+          10 分钟
         
       </span>
     
@@ -303,7 +308,43 @@
             
               <div class="markdown-body">
                 
-                <h2 id="一、Hexo-建站完整步骤"><a href="#一、Hexo-建站完整步骤" class="headerlink" title="一、Hexo 建站完整步骤"></a>一、Hexo 建站完整步骤</h2><h3 id="1-初始化项目"><a href="#1-初始化项目" class="headerlink" title="1. 初始化项目"></a>1. 初始化项目</h3><hr>
+                <h1 id="一、Hexo-建站完整步骤"><a href="#一、Hexo-建站完整步骤" class="headerlink" title="一、Hexo 建站完整步骤"></a>一、Hexo 建站完整步骤</h1><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h3><ul>
+<li>安装node.js   我装过，做大一年度项目的时候装的，前后端分离，当时不知道Java和Javaicript不是同一个东西，第一版做的稀烂，用过node.js。那时候该记下来环境怎么配置的。</li>
+<li>安装git  也装过，git bash不好使，我git用的就不熟练，得练，记不住，别再每次使ai查了。</li>
+<li>安装hexo  <code>$ npm install -g hexo-cli</code></li>
+</ul>
+<h3 id="2-初始化"><a href="#2-初始化" class="headerlink" title="2. 初始化"></a>2. 初始化</h3><ul>
+<li><code>hexo init blog</code> <code>npm install</code></li>
+</ul>
+<h3 id="3-配置文件"><a href="#3-配置文件" class="headerlink" title="3. 配置文件"></a>3. 配置文件</h3><ul>
+<li>_config.yml：整体的配置文件，可以在这里选择模板</li>
+<li>package.json：应用程序的信息</li>
+<li>source：资源文件夹。可以用img存放图片，<code>_posts</code>文件夹放所有文章，可以在里面自己建文件夹，比如tech、essays。 除 _posts 文件夹之外，开头命名为 _ (下划线)的文件 &#x2F; 文件夹和隐藏的文件将会被忽略。 Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去。确实，比如我在source里建的common.css就被拷贝到了public下的css文件夹里面。</li>
+<li>theme: 我用的fluid，但是我忘了我当时怎么操作的，里面啥也没有，我还是可以用fluid主题。很多配置文件我不知道去哪里改，只能在source里面新建，不过一次也没有生效。</li>
+<li>node_modules：放插件吧，我找不到fluid相关配置文件的时候从这里看到过hexo_theme_fluid，不过ai不建议我修改这里，因为一旦重新下载npm，这里也就重新配置了。</li>
+<li>我经常修改的是_config.fluid.yml,我怀疑是当时跟着某个博客教程把fluid里的配置文件放到根目录里，然后把theme里的文件删掉了。忘了，太久了。</li>
+</ul>
+<h3 id="4-美化"><a href="#4-美化" class="headerlink" title="4. 美化"></a>4. 美化</h3><ul>
+<li>在_config.fluid.yml顺着改就可以了，遇到的主要问题是，我想让导航栏显示我自定义的页面，但是效果不理想。想学学前端。</li>
+<li>做了个小垃圾，不想说话。</li>
+<li>做不下去开始玩手机，发现破罐子破摔非常舒服，逃避有利于心理健康。</li>
+<li>不是不能放下手机，是不愿意打破这种惯性。然后终于把这篇博客写出来了。按照我的尿性，这种东西我会继续找个理由逃避，今天还是做了个垃圾，可喜可贺，再接再厉！</li>
+<li>还是写出来舒服，脏东西吐出来心里就干净了。</li>
+</ul>
+<h1 id="二、后记"><a href="#二、后记" class="headerlink" title="二、后记"></a>二、后记</h1><ul>
+<li>怎么在不想做的时候做下去，什么也别想，先做，做个垃圾。</li>
+<li>不理想，给它点时间成长。</li>
+<li>这些碎碎念为什么不写到日记里面，跑到这里撒泼打滚，想写别管，能写是福。</li>
+<li>博客可以精美，图片可以丰富，内容可以高质量，个人介绍可以有趣，我看了很多别人的博客，各有各的优点。我的奇怪又简陋，那……这也可以吧。</li>
+<li>写点技术博客？写点随笔？这两个自定义页面需要完善。自定义页面的编辑在哪里进行，怎么样实现文章根据分类自动拷贝到tech和essays文件夹，就像public文件夹一样。</li>
+<li>about页怎么设计，我也整点有意思的，emm……，文学、运动、音乐，我喜欢的这些放上。技术，我不喜欢但是得学的也要放上。怎么排版好看，还是学学前端吧，看着还挺有意思。</li>
+<li>想做一个侧边栏，每次刷新都会更新语录。放我喜欢的诗句、文字，或者自己颠。</li>
+<li>文章中可以有一点醒目的标识</li>
+</ul>
+<blockquote>
+<p>算是建站完成，一月份就尝试过，那时候搭建完成但是很嫌弃，所以什么都没发，现在依然嫌弃，还是捏着鼻子发了。昨天下午大概从四点开始折腾到十二点半，今天早上一个小时左右，折腾的原因是不满意，觉着还有可以优化的地方，但是代码不听我指挥。可以看出我信息检索的能力差，很容易陷入ai的牛角尖，过于依赖ai这种检索方式。决断与规划能力差，有的问题可以先不管，那就果断抛弃不再周旋，先来个“hello world”就好。丢掉完美主义，垃圾就垃圾吧。</p>
+</blockquote>
+<hr>
 
                 
               </div>
@@ -397,12 +438,6 @@
                   </article>
                   <article class="post-next col-6">
                     
-                    
-                      <a href="/2025/01/24/test-my-site/" title="test_my_site">
-                        <span class="hidden-mobile">test_my_site</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </article>
                 </div>
