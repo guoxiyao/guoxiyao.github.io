@@ -19,23 +19,25 @@
   <meta name="author" content="归潇">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Golang项目部署到云服务器详细教程项目部署到云服务器的过程包括本地编译、文件上传、服务器配置和后台运行等步骤。 1. 本地编译在Windows环境下，我们需要先配置交叉编译环境，以便生成Linux系统可执行文件： 123456# 配置编译环境set GOOS&#x3D;linux  #设置编译目标系统为Linuxset GOARCH&#x3D;amd64 #设置编译目标的指令集架构为64位 x86架构# 执行编译">
+    <meta name="description" content="WSL、Ubuntu和Vim使用指南本文将详细介绍如何在Windows系统中使用WSL（Windows Subsystem for Linux）安装Ubuntu，以及如何使用Vim编辑器进行开发。 1. WSL安装与配置1.1 启用WSL功能在Windows中启用WSL功能有两种方式：  使用PowerShell（管理员权限）：  12dism.exe &#x2F;online &#x2F;enable-featur">
 <meta property="og:type" content="article">
-<meta property="og:title" content="golang项目部署到云服务器">
-<meta property="og:url" content="https://guoxiyao.github.io/2025/05/10/golang%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E5%88%B0%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/index.html">
+<meta property="og:title" content="linux初体验">
+<meta property="og:url" content="https://guoxiyao.github.io/2025/05/10/linux%E5%88%9D%E4%BD%93%E9%AA%8C/index.html">
 <meta property="og:site_name" content="归潇">
-<meta property="og:description" content="Golang项目部署到云服务器详细教程项目部署到云服务器的过程包括本地编译、文件上传、服务器配置和后台运行等步骤。 1. 本地编译在Windows环境下，我们需要先配置交叉编译环境，以便生成Linux系统可执行文件： 123456# 配置编译环境set GOOS&#x3D;linux  #设置编译目标系统为Linuxset GOARCH&#x3D;amd64 #设置编译目标的指令集架构为64位 x86架构# 执行编译">
+<meta property="og:description" content="WSL、Ubuntu和Vim使用指南本文将详细介绍如何在Windows系统中使用WSL（Windows Subsystem for Linux）安装Ubuntu，以及如何使用Vim编辑器进行开发。 1. WSL安装与配置1.1 启用WSL功能在Windows中启用WSL功能有两种方式：  使用PowerShell（管理员权限）：  12dism.exe &#x2F;online &#x2F;enable-featur">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-05-10T08:25:50.000Z">
-<meta property="article:modified_time" content="2025-05-10T08:26:34.897Z">
+<meta property="article:published_time" content="2025-05-10T08:43:31.000Z">
+<meta property="article:modified_time" content="2025-05-10T08:47:54.140Z">
 <meta property="article:author" content="归潇">
-<meta property="article:tag" content="Golang">
-<meta property="article:tag" content="服务器">
+<meta property="article:tag" content="WSL">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="Vim">
+<meta property="article:tag" content="开发环境">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>golang项目部署到云服务器 - 归潇</title>
+  <title>linux初体验 - 归潇</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -231,7 +233,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="golang项目部署到云服务器"></span>
+            <span id="subtitle" data-typed-text="linux初体验"></span>
           
         </div>
 
@@ -247,7 +249,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-05-10 16:25" pubdate>
+        <time datetime="2025-05-10 16:43" pubdate>
           2025年5月10日 下午
         </time>
       </span>
@@ -259,7 +261,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          853 字
         
       </span>
     
@@ -270,7 +272,7 @@
         
         
         
-          11 分钟
+          8 分钟
         
       </span>
     
@@ -316,228 +318,129 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">golang项目部署到云服务器</h1>
+            <h1 id="seo-header">linux初体验</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="Golang项目部署到云服务器详细教程"><a href="#Golang项目部署到云服务器详细教程" class="headerlink" title="Golang项目部署到云服务器详细教程"></a>Golang项目部署到云服务器详细教程</h1><p>项目部署到云服务器的过程包括本地编译、文件上传、服务器配置和后台运行等步骤。</p>
-<h2 id="1-本地编译"><a href="#1-本地编译" class="headerlink" title="1. 本地编译"></a>1. 本地编译</h2><p>在Windows环境下，我们需要先配置交叉编译环境，以便生成Linux系统可执行文件：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 配置编译环境</span><br><span class="hljs-built_in">set</span> GOOS=linux  <span class="hljs-comment">#设置编译目标系统为Linux</span><br><span class="hljs-built_in">set</span> GOARCH=amd64 <span class="hljs-comment">#设置编译目标的指令集架构为64位 x86架构</span><br><br><span class="hljs-comment"># 执行编译</span><br>go build <span class="hljs-literal">-o</span> huancuilou  <span class="hljs-comment"># 生成名为huancuilou的可执行文件</span><br></code></pre></td></tr></table></figure>
-
-<p>编译完成后，会在当前目录生成<code>huancuilou</code>可执行文件。</p>
-<h2 id="2-文件上传"><a href="#2-文件上传" class="headerlink" title="2. 文件上传"></a>2. 文件上传</h2><ol>
-<li>登录宝塔面板</li>
-<li>在文件管理器中找到目标目录（通常是<code>/www/wwwroot/default</code>）</li>
-<li>将编译好的<code>huancuilou</code>文件上传到该目录</li>
-</ol>
-<h2 id="3-服务器配置"><a href="#3-服务器配置" class="headerlink" title="3. 服务器配置"></a>3. 服务器配置</h2><h3 id="3-1-运行程序"><a href="#3-1-运行程序" class="headerlink" title="3.1 运行程序"></a>3.1 运行程序</h3><p>通过SSH连接到服务器，执行以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 进入项目目录</span><br><span class="hljs-built_in">cd</span> /www/wwwroot/default<br><br><span class="hljs-comment"># 查看文件是否存在</span><br><span class="hljs-built_in">ls</span><br><br><span class="hljs-comment"># 运行程序</span><br>./huancuilou<br></code></pre></td></tr></table></figure>
-
-<h3 id="3-2-处理端口占用"><a href="#3-2-处理端口占用" class="headerlink" title="3.2 处理端口占用"></a>3.2 处理端口占用</h3><p>如果遇到端口被占用的情况，可以使用以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看占用端口的进程</span><br>lsof -i:8080<br><br><span class="hljs-comment"># 终止占用端口的进程</span><br><span class="hljs-built_in">kill</span> -9 [进程ID]<br></code></pre></td></tr></table></figure>
-
-<h2 id="4-配置后台运行"><a href="#4-配置后台运行" class="headerlink" title="4. 配置后台运行"></a>4. 配置后台运行</h2><p>为了确保程序在服务器重启或面板关闭后仍能继续运行，我们需要创建一个后台运行脚本：</p>
+                <h1 id="WSL、Ubuntu和Vim使用指南"><a href="#WSL、Ubuntu和Vim使用指南" class="headerlink" title="WSL、Ubuntu和Vim使用指南"></a>WSL、Ubuntu和Vim使用指南</h1><p>本文将详细介绍如何在Windows系统中使用WSL（Windows Subsystem for Linux）安装Ubuntu，以及如何使用Vim编辑器进行开发。</p>
+<h2 id="1-WSL安装与配置"><a href="#1-WSL安装与配置" class="headerlink" title="1. WSL安装与配置"></a>1. WSL安装与配置</h2><h3 id="1-1-启用WSL功能"><a href="#1-1-启用WSL功能" class="headerlink" title="1.1 启用WSL功能"></a>1.1 启用WSL功能</h3><p>在Windows中启用WSL功能有两种方式：</p>
 <ol>
-<li>创建运行脚本：</li>
+<li>使用PowerShell（管理员权限）：</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim run.sh<br></code></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell">dism.exe /online /<span class="hljs-built_in">enable-feature</span> /featurename:Microsoft<span class="hljs-literal">-Windows-Subsystem-Linux</span> /all /norestart<br>dism.exe /online /<span class="hljs-built_in">enable-feature</span> /featurename:VirtualMachinePlatform /all /norestart<br></code></pre></td></tr></table></figure>
 
 <ol start="2">
-<li>在脚本中添加以下内容：</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">nohup</span> ./huancuilou &gt;output.log 2&gt;&amp;1 &amp;<br></code></pre></td></tr></table></figure>
-
-<p>这个命令的含义：</p>
-<ul>
-<li><code>nohup</code>: 使进程忽略所有挂断（SIGHUP）信号</li>
-<li><code>&gt;output.log</code>: 将标准输出重定向到output.log文件</li>
-<li><code>2&gt;&amp;1</code>: 将标准错误也重定向到标准输出</li>
-<li><code>&amp;</code>: 在后台运行</li>
+<li>通过Windows功能：<ul>
+<li>打开”控制面板”</li>
+<li>进入”程序和功能”</li>
+<li>点击”启用或关闭Windows功能”</li>
+<li>勾选”适用于Linux的Windows子系统”</li>
 </ul>
+</li>
+</ol>
+<h3 id="1-2-安装Ubuntu"><a href="#1-2-安装Ubuntu" class="headerlink" title="1.2 安装Ubuntu"></a>1.2 安装Ubuntu</h3><ol>
+<li><p>从Microsoft Store安装Ubuntu：</p>
+<ul>
+<li>打开Microsoft Store</li>
+<li>搜索”Ubuntu”</li>
+<li>选择最新版本（如Ubuntu 22.04 LTS）</li>
+<li>点击”获取”或”安装”</li>
+</ul>
+</li>
+<li><p>首次启动配置：</p>
+<ul>
+<li>启动Ubuntu</li>
+<li>创建用户名和密码</li>
+<li>等待系统初始化完成</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-Ubuntu基础使用"><a href="#2-Ubuntu基础使用" class="headerlink" title="2. Ubuntu基础使用"></a>2. Ubuntu基础使用</h2><h3 id="2-1-系统更新"><a href="#2-1-系统更新" class="headerlink" title="2.1 系统更新"></a>2.1 系统更新</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 更新软件包列表</span><br><span class="hljs-built_in">sudo</span> apt update<br><br><span class="hljs-comment"># 升级已安装的软件包</span><br><span class="hljs-built_in">sudo</span> apt upgrade<br><br><span class="hljs-comment"># 清理不需要的软件包</span><br><span class="hljs-built_in">sudo</span> apt autoremove<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-常用命令"><a href="#2-2-常用命令" class="headerlink" title="2.2 常用命令"></a>2.2 常用命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看当前目录</span><br><span class="hljs-built_in">pwd</span><br><br><span class="hljs-comment"># 列出文件</span><br><span class="hljs-built_in">ls</span><br><span class="hljs-built_in">ls</span> -l    <span class="hljs-comment"># 详细信息</span><br><span class="hljs-built_in">ls</span> -a    <span class="hljs-comment"># 显示隐藏文件</span><br><br><span class="hljs-comment"># 切换目录</span><br><span class="hljs-built_in">cd</span> /path/to/directory<br><span class="hljs-built_in">cd</span> ..    <span class="hljs-comment"># 返回上级目录</span><br><span class="hljs-built_in">cd</span> ~     <span class="hljs-comment"># 返回家目录</span><br><br><span class="hljs-comment"># 创建目录</span><br><span class="hljs-built_in">mkdir</span> directory_name<br><br><span class="hljs-comment"># 删除文件/目录</span><br><span class="hljs-built_in">rm</span> file_name<br><span class="hljs-built_in">rm</span> -r directory_name    <span class="hljs-comment"># 递归删除目录</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="3-Vim编辑器使用"><a href="#3-Vim编辑器使用" class="headerlink" title="3. Vim编辑器使用"></a>3. Vim编辑器使用</h2><h3 id="3-1-安装Vim"><a href="#3-1-安装Vim" class="headerlink" title="3.1 安装Vim"></a>3.1 安装Vim</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> apt install vim<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-2-Vim基础操作"><a href="#3-2-Vim基础操作" class="headerlink" title="3.2 Vim基础操作"></a>3.2 Vim基础操作</h3><h4 id="3-2-1-模式切换"><a href="#3-2-1-模式切换" class="headerlink" title="3.2.1 模式切换"></a>3.2.1 模式切换</h4><ul>
+<li>普通模式（默认）：按<code>Esc</code>键</li>
+<li>插入模式：按<code>i</code>键</li>
+<li>可视模式：按<code>v</code>键</li>
+<li>命令模式：按<code>:</code>键</li>
+</ul>
+<h4 id="3-2-2-基本命令"><a href="#3-2-2-基本命令" class="headerlink" title="3.2.2 基本命令"></a>3.2.2 基本命令</h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs vim"># 文件操作<br>:<span class="hljs-keyword">w</span>          # 保存文件<br>:q          # 退出<br>:<span class="hljs-keyword">wq</span>         # 保存并退出<br>:q!         # 强制退出不保存<br><br># 光标移动<br>h           # 左移<br><span class="hljs-keyword">j</span>           # 下移<br><span class="hljs-keyword">k</span>           # 上移<br><span class="hljs-keyword">l</span>           # 右移<br><span class="hljs-number">0</span>           # 行首<br>$           # 行尾<br>gg          # 文件开头<br>G           # 文件末尾<br><br># 编辑操作<br>dd          # 删除当前行<br>yy          # 复制当前行<br><span class="hljs-keyword">p</span>           # 粘贴<br><span class="hljs-keyword">u</span>           # 撤销<br>Ctrl+r      # 重做<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-3-Vim配置"><a href="#3-3-Vim配置" class="headerlink" title="3.3 Vim配置"></a>3.3 Vim配置</h3><p>创建或编辑<code>~/.vimrc</code>文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim ~/.vimrc<br></code></pre></td></tr></table></figure>
+
+<p>常用配置示例：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-comment">&quot; 显示行号</span><br><span class="hljs-keyword">set</span> <span class="hljs-keyword">number</span><br><br><span class="hljs-comment">&quot; 语法高亮</span><br><span class="hljs-keyword">syntax</span> <span class="hljs-keyword">on</span><br><br><span class="hljs-comment">&quot; 自动缩进</span><br><span class="hljs-keyword">set</span> autoindent<br><br><span class="hljs-comment">&quot; 显示匹配的括号</span><br><span class="hljs-keyword">set</span> showmatch<br><br><span class="hljs-comment">&quot; 搜索时忽略大小写</span><br><span class="hljs-keyword">set</span> ignorecase<br><br><span class="hljs-comment">&quot; 设置缩进为4个空格</span><br><span class="hljs-keyword">set</span> tabstop=<span class="hljs-number">4</span><br><span class="hljs-keyword">set</span> <span class="hljs-built_in">shiftwidth</span>=<span class="hljs-number">4</span><br><span class="hljs-keyword">set</span> expandtab<br><br><span class="hljs-comment">&quot; 显示状态行</span><br><span class="hljs-keyword">set</span> laststatus=<span class="hljs-number">2</span><br><br><span class="hljs-comment">&quot; 设置主题</span><br><span class="hljs-keyword">colorscheme</span> desert<br></code></pre></td></tr></table></figure>
+
+<h2 id="4-开发环境配置"><a href="#4-开发环境配置" class="headerlink" title="4. 开发环境配置"></a>4. 开发环境配置</h2><h3 id="4-1-安装开发工具"><a href="#4-1-安装开发工具" class="headerlink" title="4.1 安装开发工具"></a>4.1 安装开发工具</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装编译工具</span><br><span class="hljs-built_in">sudo</span> apt install build-essential<br><br><span class="hljs-comment"># 安装Git</span><br><span class="hljs-built_in">sudo</span> apt install git<br><br><span class="hljs-comment"># 安装Python</span><br><span class="hljs-built_in">sudo</span> apt install python3 python3-pip<br><br><span class="hljs-comment"># 安装Node.js</span><br>curl -fsSL https://deb.nodesource.com/setup_lts.x | <span class="hljs-built_in">sudo</span> -E bash -<br><span class="hljs-built_in">sudo</span> apt install nodejs<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-2-配置Git"><a href="#4-2-配置Git" class="headerlink" title="4.2 配置Git"></a>4.2 配置Git</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 配置用户名和邮箱</span><br>git config --global user.name <span class="hljs-string">&quot;Your Name&quot;</span><br>git config --global user.email <span class="hljs-string">&quot;your.email@example.com&quot;</span><br><br><span class="hljs-comment"># 生成SSH密钥</span><br>ssh-keygen -t rsa -b 4096<br></code></pre></td></tr></table></figure>
+
+<h2 id="5-实用技巧"><a href="#5-实用技巧" class="headerlink" title="5. 实用技巧"></a>5. 实用技巧</h2><h3 id="5-1-WSL与Windows文件系统互访"><a href="#5-1-WSL与Windows文件系统互访" class="headerlink" title="5.1 WSL与Windows文件系统互访"></a>5.1 WSL与Windows文件系统互访</h3><ul>
+<li>Windows访问WSL文件：<code>\\wsl$\Ubuntu\</code></li>
+<li>WSL访问Windows文件：<code>/mnt/c/</code></li>
+</ul>
+<h3 id="5-2-Vim插件管理"><a href="#5-2-Vim插件管理" class="headerlink" title="5.2 Vim插件管理"></a>5.2 Vim插件管理</h3><p>推荐使用Vim插件管理器（如vim-plug）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装vim-plug</span><br>curl -fLo ~/.vim/autoload/plug.vim --create-dirs \<br>    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim<br></code></pre></td></tr></table></figure>
+
+<p>在<code>.vimrc</code>中添加插件：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">call</span> plug#begin(<span class="hljs-string">&#x27;~/.vim/plugged&#x27;</span>)<br>Plug <span class="hljs-string">&#x27;preservim/nerdtree&#x27;</span><br>Plug <span class="hljs-string">&#x27;vim-airline/vim-airline&#x27;</span><br>Plug <span class="hljs-string">&#x27;vim-airline/vim-airline-themes&#x27;</span><br><span class="hljs-keyword">call</span> plug#end()<br></code></pre></td></tr></table></figure>
+
+<p>安装插件：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">:PlugInstall<br></code></pre></td></tr></table></figure>
+
+<h2 id="6-常见问题解决"><a href="#6-常见问题解决" class="headerlink" title="6. 常见问题解决"></a>6. 常见问题解决</h2><ol>
+<li><p>WSL启动失败</p>
+<ul>
+<li>检查Windows功能是否启用</li>
+<li>重启WSL：<code>wsl --shutdown</code></li>
+<li>重置WSL：<code>wsl --unregister Ubuntu</code></li>
+</ul>
+</li>
+<li><p>Vim中文乱码</p>
+<ul>
+<li>在<code>.vimrc</code>中添加：</li>
+</ul>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">set</span> encoding=utf-<span class="hljs-number">8</span><br><span class="hljs-keyword">set</span> fileencoding=utf-<span class="hljs-number">8</span><br><span class="hljs-keyword">set</span> termencoding=utf-<span class="hljs-number">8</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>权限问题</p>
+<ul>
+<li>使用<code>sudo</code>执行需要权限的命令</li>
+<li>修改文件权限：<code>chmod</code></li>
+<li>修改文件所有者：<code>chown</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="7-进阶建议"><a href="#7-进阶建议" class="headerlink" title="7. 进阶建议"></a>7. 进阶建议</h2><ol>
+<li><p>使用WSL2而不是WSL1</p>
+<ul>
+<li>更好的性能</li>
+<li>完整的Linux内核</li>
+<li>更好的系统调用兼容性</li>
+</ul>
+</li>
+<li><p>配置WSL的默认版本</p>
+</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">wsl <span class="hljs-literal">--set-default-version</span> <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
 <ol start="3">
-<li>保存并退出vim：</li>
-</ol>
+<li><p>使用Windows Terminal</p>
 <ul>
-<li>按<code>Esc</code>键确保在英文输入状态</li>
-<li>输入<code>:wq</code>保存并退出</li>
-</ul>
-<ol start="4">
-<li>给脚本添加执行权限：</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> +x run.sh<br></code></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>运行脚本：</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">./run.sh<br></code></pre></td></tr></table></figure>
-
-<ol start="6">
-<li>验证程序是否在后台运行：</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ps -ef | grep huancuilou<br></code></pre></td></tr></table></figure>
-
-<h2 id="5-注意事项"><a href="#5-注意事项" class="headerlink" title="5. 注意事项"></a>5. 注意事项</h2><ol>
-<li>确保服务器防火墙已开放相应端口</li>
-<li>定期检查日志文件大小，必要时进行日志轮转</li>
-<li>建议配置监控，及时发现程序异常</li>
-<li>重要数据建议配置备份机制</li>
-</ol>
-<h2 id="6-常见问题排查"><a href="#6-常见问题排查" class="headerlink" title="6. 常见问题排查"></a>6. 常见问题排查</h2><ol>
-<li><p>程序无法启动</p>
-<ul>
-<li>检查文件权限</li>
-<li>检查端口占用</li>
-<li>查看错误日志</li>
+<li>更好的终端体验</li>
+<li>多标签支持</li>
+<li>自定义主题</li>
 </ul>
 </li>
-<li><p>程序意外退出</p>
+<li><p>配置Vim为IDE</p>
 <ul>
-<li>检查系统资源使用情况</li>
-<li>查看程序日志</li>
-<li>确认是否有内存泄漏</li>
-</ul>
-</li>
-<li><p>性能问题</p>
-<ul>
-<li>使用<code>top</code>命令监控系统资源</li>
-<li>检查程序日志中的性能相关信息</li>
-<li>考虑是否需要优化代码或增加服务器配置</li>
-</ul>
-</li>
-</ol>
-<h2 id="7-其他部署方式"><a href="#7-其他部署方式" class="headerlink" title="7. 其他部署方式"></a>7. 其他部署方式</h2><p>除了上述直接部署的方式外，还有以下几种常用的部署方案：</p>
-<h3 id="7-1-Docker容器化部署"><a href="#7-1-Docker容器化部署" class="headerlink" title="7.1 Docker容器化部署"></a>7.1 Docker容器化部署</h3><ol>
-<li>创建Dockerfile：</li>
-</ol>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> golang:<span class="hljs-number">1.21</span>-alpine AS builder<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /app</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> . .</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> go build -o main .</span><br><br><span class="hljs-keyword">FROM</span> alpine:latest<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /app</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> --from=builder /app/main .</span><br><span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">8080</span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;./main&quot;</span>]</span><br></code></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>构建和运行Docker镜像：</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 构建镜像</span><br>docker build -t myapp .<br><br><span class="hljs-comment"># 运行容器</span><br>docker run -d -p 8080:8080 myapp<br></code></pre></td></tr></table></figure>
-
-<p>优点：</p>
-<ul>
-<li>环境隔离，避免依赖冲突</li>
-<li>部署简单，一次构建到处运行</li>
-<li>便于版本管理和回滚</li>
-<li>资源利用率高</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>需要学习Docker相关知识</li>
-<li>镜像体积可能较大</li>
-<li>需要额外的Docker环境</li>
-</ul>
-<h3 id="7-2-使用Supervisor进程管理"><a href="#7-2-使用Supervisor进程管理" class="headerlink" title="7.2 使用Supervisor进程管理"></a>7.2 使用Supervisor进程管理</h3><ol>
-<li>安装Supervisor：</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt-get install supervisor<br></code></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>创建配置文件：</li>
-</ol>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[program:myapp]</span><br><span class="hljs-attr">directory</span>=/www/wwwroot/default<br><span class="hljs-attr">command</span>=/www/wwwroot/default/huancuilou<br><span class="hljs-attr">autostart</span>=<span class="hljs-literal">true</span><br><span class="hljs-attr">autorestart</span>=<span class="hljs-literal">true</span><br><span class="hljs-attr">stderr_logfile</span>=/var/log/myapp.err.log<br><span class="hljs-attr">stdout_logfile</span>=/var/log/myapp.out.log<br></code></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>启动服务：</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">supervisorctl update<br>supervisorctl start myapp<br></code></pre></td></tr></table></figure>
-
-<p>优点：</p>
-<ul>
-<li>进程管理更专业</li>
-<li>自动重启功能</li>
-<li>日志管理更完善</li>
-<li>可以管理多个进程</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>配置相对复杂</li>
-<li>需要额外安装Supervisor</li>
-<li>仅适用于进程管理</li>
-</ul>
-<h3 id="7-3-使用Systemd服务"><a href="#7-3-使用Systemd服务" class="headerlink" title="7.3 使用Systemd服务"></a>7.3 使用Systemd服务</h3><ol>
-<li>创建服务文件：</li>
-</ol>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Unit]</span><br><span class="hljs-attr">Description</span>=My Golang Application<br><span class="hljs-attr">After</span>=network.target<br><br><span class="hljs-section">[Service]</span><br><span class="hljs-attr">Type</span>=simple<br><span class="hljs-attr">User</span>=root<br><span class="hljs-attr">WorkingDirectory</span>=/www/wwwroot/default<br><span class="hljs-attr">ExecStart</span>=/www/wwwroot/default/huancuilou<br><span class="hljs-attr">Restart</span>=always<br><br><span class="hljs-section">[Install]</span><br><span class="hljs-attr">WantedBy</span>=multi-user.target<br></code></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>启动服务：</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl <span class="hljs-built_in">enable</span> myapp<br>systemctl start myapp<br></code></pre></td></tr></table></figure>
-
-<p>优点：</p>
-<ul>
-<li>系统级服务管理</li>
-<li>开机自启动</li>
-<li>完善的日志系统</li>
-<li>系统集成度高</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>配置相对复杂</li>
-<li>需要root权限</li>
-<li>仅适用于Linux系统</li>
-</ul>
-<h2 id="8-部署方式对比"><a href="#8-部署方式对比" class="headerlink" title="8. 部署方式对比"></a>8. 部署方式对比</h2><table>
-<thead>
-<tr>
-<th>部署方式</th>
-<th>优点</th>
-<th>缺点</th>
-<th>适用场景</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>直接部署</td>
-<td>简单直接，无需额外配置</td>
-<td>进程管理不够完善，重启需要手动操作</td>
-<td>小型项目，快速部署</td>
-</tr>
-<tr>
-<td>Docker部署</td>
-<td>环境隔离，部署简单，便于管理</td>
-<td>需要Docker环境，学习成本较高</td>
-<td>微服务架构，需要环境隔离的项目</td>
-</tr>
-<tr>
-<td>Supervisor</td>
-<td>进程管理专业，自动重启，日志完善</td>
-<td>仅适用于进程管理，配置较复杂</td>
-<td>需要稳定运行的生产环境</td>
-</tr>
-<tr>
-<td>Systemd</td>
-<td>系统级服务管理，开机自启动</td>
-<td>仅适用于Linux，需要root权限</td>
-<td>系统级服务，需要开机自启动的项目</td>
-</tr>
-</tbody></table>
-<h2 id="9-选择建议"><a href="#9-选择建议" class="headerlink" title="9. 选择建议"></a>9. 选择建议</h2><ol>
-<li><p>小型项目或快速原型：</p>
-<ul>
-<li>推荐使用直接部署方式</li>
-<li>简单直接，快速上线</li>
-</ul>
-</li>
-<li><p>微服务架构：</p>
-<ul>
-<li>推荐使用Docker部署</li>
-<li>便于服务管理和扩展</li>
-</ul>
-</li>
-<li><p>生产环境：</p>
-<ul>
-<li>推荐使用Supervisor或Systemd</li>
-<li>提供更完善的进程管理和监控</li>
-</ul>
-</li>
-<li><p>系统服务：</p>
-<ul>
-<li>推荐使用Systemd</li>
-<li>与系统深度集成</li>
+<li>使用插件增强功能</li>
+<li>配置代码补全</li>
+<li>设置代码格式化</li>
 </ul>
 </li>
 </ol>
@@ -553,9 +456,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Golang/" class="print-no-link">#Golang</a>
+        <a href="/tags/WSL/" class="print-no-link">#WSL</a>
       
-        <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="print-no-link">#服务器</a>
+        <a href="/tags/Ubuntu/" class="print-no-link">#Ubuntu</a>
+      
+        <a href="/tags/Vim/" class="print-no-link">#Vim</a>
+      
+        <a href="/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="print-no-link">#开发环境</a>
       
     </div>
   
@@ -567,8 +474,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>golang项目部署到云服务器</div>
-      <div>https://guoxiyao.github.io/2025/05/10/golang项目部署到云服务器/</div>
+      <div>linux初体验</div>
+      <div>https://guoxiyao.github.io/2025/05/10/linux初体验/</div>
     </div>
     <div class="license-meta">
       
@@ -612,18 +519,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/10/linux%E5%88%9D%E4%BD%93%E9%AA%8C/" title="linux初体验">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">linux初体验</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/08/%E6%A0%A1%E8%BF%90%E4%BC%9A%E5%A4%87%E6%88%98%E6%97%A5%E5%BF%97/" title="校运会备战日志">
-                        <span class="hidden-mobile">校运会备战日志</span>
+                      <a href="/2025/05/10/golang%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E5%88%B0%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="golang项目部署到云服务器">
+                        <span class="hidden-mobile">golang项目部署到云服务器</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
