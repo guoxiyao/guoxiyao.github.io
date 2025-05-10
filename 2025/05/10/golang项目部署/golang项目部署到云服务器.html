@@ -1,0 +1,270 @@
+<hr>
+<h2 id="title-Golang项目部署到云服务器详细教程date-2025-05-10tags-Golang-服务器"><a href="#title-Golang项目部署到云服务器详细教程date-2025-05-10tags-Golang-服务器" class="headerlink" title="title: Golang项目部署到云服务器详细教程date: 2025-05-10tags:  - Golang  - 服务器"></a>title: Golang项目部署到云服务器详细教程<br>date: 2025-05-10<br>tags:<br>  - Golang<br>  - 服务器</h2><h1 id="Golang项目部署到云服务器详细教程"><a href="#Golang项目部署到云服务器详细教程" class="headerlink" title="Golang项目部署到云服务器详细教程"></a>Golang项目部署到云服务器详细教程</h1><p>项目部署到云服务器的过程包括本地编译、文件上传、服务器配置和后台运行等步骤。</p>
+<h2 id="1-本地编译"><a href="#1-本地编译" class="headerlink" title="1. 本地编译"></a>1. 本地编译</h2><p>在Windows环境下，我们需要先配置交叉编译环境，以便生成Linux系统可执行文件：</p>
+<pre><code class="language-powershell"># 配置编译环境
+set GOOS=linux  #设置编译目标系统为Linux
+set GOARCH=amd64 #设置编译目标的指令集架构为64位 x86架构
+
+# 执行编译
+go build -o huancuilou  # 生成名为huancuilou的可执行文件
+</code></pre>
+<p>编译完成后，会在当前目录生成<code>huancuilou</code>可执行文件。</p>
+<h2 id="2-文件上传"><a href="#2-文件上传" class="headerlink" title="2. 文件上传"></a>2. 文件上传</h2><ol>
+<li>登录宝塔面板</li>
+<li>在文件管理器中找到目标目录（通常是<code>/www/wwwroot/default</code>）</li>
+<li>将编译好的<code>huancuilou</code>文件上传到该目录</li>
+</ol>
+<h2 id="3-服务器配置"><a href="#3-服务器配置" class="headerlink" title="3. 服务器配置"></a>3. 服务器配置</h2><h3 id="3-1-运行程序"><a href="#3-1-运行程序" class="headerlink" title="3.1 运行程序"></a>3.1 运行程序</h3><p>通过SSH连接到服务器，执行以下命令：</p>
+<pre><code class="language-bash"># 进入项目目录
+cd /www/wwwroot/default
+
+# 查看文件是否存在
+ls
+
+# 运行程序
+./huancuilou
+</code></pre>
+<h3 id="3-2-处理端口占用"><a href="#3-2-处理端口占用" class="headerlink" title="3.2 处理端口占用"></a>3.2 处理端口占用</h3><p>如果遇到端口被占用的情况，可以使用以下命令：</p>
+<pre><code class="language-bash"># 查看占用端口的进程
+lsof -i:8080
+
+# 终止占用端口的进程
+kill -9 [进程ID]
+</code></pre>
+<h2 id="4-配置后台运行"><a href="#4-配置后台运行" class="headerlink" title="4. 配置后台运行"></a>4. 配置后台运行</h2><p>为了确保程序在服务器重启或面板关闭后仍能继续运行，我们需要创建一个后台运行脚本：</p>
+<ol>
+<li>创建运行脚本：</li>
+</ol>
+<pre><code class="language-bash">vim run.sh
+</code></pre>
+<ol start="2">
+<li>在脚本中添加以下内容：</li>
+</ol>
+<pre><code class="language-bash">nohup ./huancuilou &gt;output.log 2&gt;&amp;1 &amp;
+</code></pre>
+<p>这个命令的含义：</p>
+<ul>
+<li><code>nohup</code>: 使进程忽略所有挂断（SIGHUP）信号</li>
+<li><code>&gt;output.log</code>: 将标准输出重定向到output.log文件</li>
+<li><code>2&gt;&amp;1</code>: 将标准错误也重定向到标准输出</li>
+<li><code>&amp;</code>: 在后台运行</li>
+</ul>
+<ol start="3">
+<li>保存并退出vim：</li>
+</ol>
+<ul>
+<li>按<code>Esc</code>键确保在英文输入状态</li>
+<li>输入<code>:wq</code>保存并退出</li>
+</ul>
+<ol start="4">
+<li>给脚本添加执行权限：</li>
+</ol>
+<pre><code class="language-bash">chmod +x run.sh
+</code></pre>
+<ol start="5">
+<li>运行脚本：</li>
+</ol>
+<pre><code class="language-bash">./run.sh
+</code></pre>
+<ol start="6">
+<li>验证程序是否在后台运行：</li>
+</ol>
+<pre><code class="language-bash">ps -ef | grep huancuilou
+</code></pre>
+<h2 id="5-注意事项"><a href="#5-注意事项" class="headerlink" title="5. 注意事项"></a>5. 注意事项</h2><ol>
+<li>确保服务器防火墙已开放相应端口</li>
+<li>定期检查日志文件大小，必要时进行日志轮转</li>
+<li>建议配置监控，及时发现程序异常</li>
+<li>重要数据建议配置备份机制</li>
+</ol>
+<h2 id="6-常见问题排查"><a href="#6-常见问题排查" class="headerlink" title="6. 常见问题排查"></a>6. 常见问题排查</h2><ol>
+<li><p>程序无法启动</p>
+<ul>
+<li>检查文件权限</li>
+<li>检查端口占用</li>
+<li>查看错误日志</li>
+</ul>
+</li>
+<li><p>程序意外退出</p>
+<ul>
+<li>检查系统资源使用情况</li>
+<li>查看程序日志</li>
+<li>确认是否有内存泄漏</li>
+</ul>
+</li>
+<li><p>性能问题</p>
+<ul>
+<li>使用<code>top</code>命令监控系统资源</li>
+<li>检查程序日志中的性能相关信息</li>
+<li>考虑是否需要优化代码或增加服务器配置</li>
+</ul>
+</li>
+</ol>
+<h2 id="7-其他部署方式"><a href="#7-其他部署方式" class="headerlink" title="7. 其他部署方式"></a>7. 其他部署方式</h2><p>除了上述直接部署的方式外，还有以下几种常用的部署方案：</p>
+<h3 id="7-1-Docker容器化部署"><a href="#7-1-Docker容器化部署" class="headerlink" title="7.1 Docker容器化部署"></a>7.1 Docker容器化部署</h3><ol>
+<li>创建Dockerfile：</li>
+</ol>
+<pre><code class="language-dockerfile">FROM golang:1.21-alpine AS builder
+WORKDIR /app
+COPY . .
+RUN go build -o main .
+
+FROM alpine:latest
+WORKDIR /app
+COPY --from=builder /app/main .
+EXPOSE 8080
+CMD [&quot;./main&quot;]
+</code></pre>
+<ol start="2">
+<li>构建和运行Docker镜像：</li>
+</ol>
+<pre><code class="language-bash"># 构建镜像
+docker build -t myapp .
+
+# 运行容器
+docker run -d -p 8080:8080 myapp
+</code></pre>
+<p>优点：</p>
+<ul>
+<li>环境隔离，避免依赖冲突</li>
+<li>部署简单，一次构建到处运行</li>
+<li>便于版本管理和回滚</li>
+<li>资源利用率高</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>需要学习Docker相关知识</li>
+<li>镜像体积可能较大</li>
+<li>需要额外的Docker环境</li>
+</ul>
+<h3 id="7-2-使用Supervisor进程管理"><a href="#7-2-使用Supervisor进程管理" class="headerlink" title="7.2 使用Supervisor进程管理"></a>7.2 使用Supervisor进程管理</h3><ol>
+<li>安装Supervisor：</li>
+</ol>
+<pre><code class="language-bash">apt-get install supervisor
+</code></pre>
+<ol start="2">
+<li>创建配置文件：</li>
+</ol>
+<pre><code class="language-ini">[program:myapp]
+directory=/www/wwwroot/default
+command=/www/wwwroot/default/huancuilou
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/myapp.err.log
+stdout_logfile=/var/log/myapp.out.log
+</code></pre>
+<ol start="3">
+<li>启动服务：</li>
+</ol>
+<pre><code class="language-bash">supervisorctl update
+supervisorctl start myapp
+</code></pre>
+<p>优点：</p>
+<ul>
+<li>进程管理更专业</li>
+<li>自动重启功能</li>
+<li>日志管理更完善</li>
+<li>可以管理多个进程</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>配置相对复杂</li>
+<li>需要额外安装Supervisor</li>
+<li>仅适用于进程管理</li>
+</ul>
+<h3 id="7-3-使用Systemd服务"><a href="#7-3-使用Systemd服务" class="headerlink" title="7.3 使用Systemd服务"></a>7.3 使用Systemd服务</h3><ol>
+<li>创建服务文件：</li>
+</ol>
+<pre><code class="language-ini">[Unit]
+Description=My Golang Application
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/www/wwwroot/default
+ExecStart=/www/wwwroot/default/huancuilou
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<ol start="2">
+<li>启动服务：</li>
+</ol>
+<pre><code class="language-bash">systemctl enable myapp
+systemctl start myapp
+</code></pre>
+<p>优点：</p>
+<ul>
+<li>系统级服务管理</li>
+<li>开机自启动</li>
+<li>完善的日志系统</li>
+<li>系统集成度高</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>配置相对复杂</li>
+<li>需要root权限</li>
+<li>仅适用于Linux系统</li>
+</ul>
+<h2 id="8-部署方式对比"><a href="#8-部署方式对比" class="headerlink" title="8. 部署方式对比"></a>8. 部署方式对比</h2><table>
+<thead>
+<tr>
+<th>部署方式</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>直接部署</td>
+<td>简单直接，无需额外配置</td>
+<td>进程管理不够完善，重启需要手动操作</td>
+<td>小型项目，快速部署</td>
+</tr>
+<tr>
+<td>Docker部署</td>
+<td>环境隔离，部署简单，便于管理</td>
+<td>需要Docker环境，学习成本较高</td>
+<td>微服务架构，需要环境隔离的项目</td>
+</tr>
+<tr>
+<td>Supervisor</td>
+<td>进程管理专业，自动重启，日志完善</td>
+<td>仅适用于进程管理，配置较复杂</td>
+<td>需要稳定运行的生产环境</td>
+</tr>
+<tr>
+<td>Systemd</td>
+<td>系统级服务管理，开机自启动</td>
+<td>仅适用于Linux，需要root权限</td>
+<td>系统级服务，需要开机自启动的项目</td>
+</tr>
+</tbody></table>
+<h2 id="9-选择建议"><a href="#9-选择建议" class="headerlink" title="9. 选择建议"></a>9. 选择建议</h2><ol>
+<li><p>小型项目或快速原型：</p>
+<ul>
+<li>推荐使用直接部署方式</li>
+<li>简单直接，快速上线</li>
+</ul>
+</li>
+<li><p>微服务架构：</p>
+<ul>
+<li>推荐使用Docker部署</li>
+<li>便于服务管理和扩展</li>
+</ul>
+</li>
+<li><p>生产环境：</p>
+<ul>
+<li>推荐使用Supervisor或Systemd</li>
+<li>提供更完善的进程管理和监控</li>
+</ul>
+</li>
+<li><p>系统服务：</p>
+<ul>
+<li>推荐使用Systemd</li>
+<li>与系统深度集成</li>
+</ul>
+</li>
+</ol>
