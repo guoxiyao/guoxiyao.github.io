@@ -1,0 +1,55 @@
+/* source/css/custom.styl */
+.quote-card {
+  background: rgba(255,253,247,0.95) url(/img/noise.png); /* 添加纹理 */
+  border: 1px solid rgba(255,165,0,0.3);
+  &::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 2px solid rgba(33,150,243,0.1);
+  }
+}
+
+/* 隐藏打字机效果的光标 */
+.typed-cursor,
+.typed-cursor--blink,
+span.typed-cursor {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* 隐藏首页文章的封面图 */
+.index-card .index-img {
+  display: none !important;
+}
+
+/* ============================================
+   隐藏不需要的元素
+   ============================================ */
+
+/* 隐藏版权声明框 */
+.post-copyright,
+#post-copyright,
+.copyright {
+  display: none !important;
+}
+
+/* 隐藏评论系统 */
+#vcomments,
+#valine,
+.vcomment,
+.comments,
+.post-comments {
+  display: none !important;
+}
+
+/* 隐藏 Valine 错误信息 */
+#vcomments .vpower,
+.vpower,
+.verror {
+  display: none !important;
+}
