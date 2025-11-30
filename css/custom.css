@@ -1,0 +1,14 @@
+/* source/css/custom.styl */
+.quote-card {
+  background: rgba(255,253,247,0.95) url("/img/noise.png"); /* 添加纹理 */
+  border: 1px solid rgba(255,165,0,0.3);
+}
+.quote-card::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 2px solid rgba(33,150,243,0.1);
+}

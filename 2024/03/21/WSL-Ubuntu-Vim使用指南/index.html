@@ -1,0 +1,884 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/magic_girl.jpg">
+  <link rel="icon" href="/img/magic_girl.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#F8F9FA">
+  <meta name="author" content="归潇">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="WSL、Ubuntu和Vim使用指南本文将详细介绍如何在Windows系统中使用WSL（Windows Subsystem for Linux）安装Ubuntu，以及如何使用Vim编辑器进行开发。 1. WSL安装与配置1.1 启用WSL功能在Windows中启用WSL功能有两种方式：  使用PowerShell（管理员权限）：  12dism.exe &#x2F;online &#x2F;enable-featur">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WSL、Ubuntu和Vim使用指南">
+<meta property="og:url" content="https://guoxiyao.github.io/2024/03/21/WSL-Ubuntu-Vim%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="归潇">
+<meta property="og:description" content="WSL、Ubuntu和Vim使用指南本文将详细介绍如何在Windows系统中使用WSL（Windows Subsystem for Linux）安装Ubuntu，以及如何使用Vim编辑器进行开发。 1. WSL安装与配置1.1 启用WSL功能在Windows中启用WSL功能有两种方式：  使用PowerShell（管理员权限）：  12dism.exe &#x2F;online &#x2F;enable-featur">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-10T08:14:43.413Z">
+<meta property="article:author" content="归潇">
+<meta property="article:tag" content="WSL">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="Vim">
+<meta property="article:tag" content="开发环境">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>WSL、Ubuntu和Vim使用指南 - 归潇</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/override.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"guoxiyao.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"TIFbH2o8wLYC3b3RdX3QfH8j-gzGzoHsz","app_key":"hCEWC22rV5laMvFdlyyo9MgD","server_url":"https://tifbh2o8.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>归潇</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E5%B0%B1%E8%BF%99%E6%A0%B7.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="WSL、Ubuntu和Vim使用指南"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        归潇
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-21 00:00" pubdate>
+          2024年3月21日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          892 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">WSL、Ubuntu和Vim使用指南</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="WSL、Ubuntu和Vim使用指南"><a href="#WSL、Ubuntu和Vim使用指南" class="headerlink" title="WSL、Ubuntu和Vim使用指南"></a>WSL、Ubuntu和Vim使用指南</h1><p>本文将详细介绍如何在Windows系统中使用WSL（Windows Subsystem for Linux）安装Ubuntu，以及如何使用Vim编辑器进行开发。</p>
+<h2 id="1-WSL安装与配置"><a href="#1-WSL安装与配置" class="headerlink" title="1. WSL安装与配置"></a>1. WSL安装与配置</h2><h3 id="1-1-启用WSL功能"><a href="#1-1-启用WSL功能" class="headerlink" title="1.1 启用WSL功能"></a>1.1 启用WSL功能</h3><p>在Windows中启用WSL功能有两种方式：</p>
+<ol>
+<li>使用PowerShell（管理员权限）：</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell">dism.exe /online /<span class="hljs-built_in">enable-feature</span> /featurename:Microsoft<span class="hljs-literal">-Windows-Subsystem-Linux</span> /all /norestart<br>dism.exe /online /<span class="hljs-built_in">enable-feature</span> /featurename:VirtualMachinePlatform /all /norestart<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>通过Windows功能：<ul>
+<li>打开”控制面板”</li>
+<li>进入”程序和功能”</li>
+<li>点击”启用或关闭Windows功能”</li>
+<li>勾选”适用于Linux的Windows子系统”</li>
+</ul>
+</li>
+</ol>
+<h3 id="1-2-安装Ubuntu"><a href="#1-2-安装Ubuntu" class="headerlink" title="1.2 安装Ubuntu"></a>1.2 安装Ubuntu</h3><ol>
+<li><p>从Microsoft Store安装Ubuntu：</p>
+<ul>
+<li>打开Microsoft Store</li>
+<li>搜索”Ubuntu”</li>
+<li>选择最新版本（如Ubuntu 22.04 LTS）</li>
+<li>点击”获取”或”安装”</li>
+</ul>
+</li>
+<li><p>首次启动配置：</p>
+<ul>
+<li>启动Ubuntu</li>
+<li>创建用户名和密码</li>
+<li>等待系统初始化完成</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-Ubuntu基础使用"><a href="#2-Ubuntu基础使用" class="headerlink" title="2. Ubuntu基础使用"></a>2. Ubuntu基础使用</h2><h3 id="2-1-系统更新"><a href="#2-1-系统更新" class="headerlink" title="2.1 系统更新"></a>2.1 系统更新</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 更新软件包列表</span><br><span class="hljs-built_in">sudo</span> apt update<br><br><span class="hljs-comment"># 升级已安装的软件包</span><br><span class="hljs-built_in">sudo</span> apt upgrade<br><br><span class="hljs-comment"># 清理不需要的软件包</span><br><span class="hljs-built_in">sudo</span> apt autoremove<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-常用命令"><a href="#2-2-常用命令" class="headerlink" title="2.2 常用命令"></a>2.2 常用命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看当前目录</span><br><span class="hljs-built_in">pwd</span><br><br><span class="hljs-comment"># 列出文件</span><br><span class="hljs-built_in">ls</span><br><span class="hljs-built_in">ls</span> -l    <span class="hljs-comment"># 详细信息</span><br><span class="hljs-built_in">ls</span> -a    <span class="hljs-comment"># 显示隐藏文件</span><br><br><span class="hljs-comment"># 切换目录</span><br><span class="hljs-built_in">cd</span> /path/to/directory<br><span class="hljs-built_in">cd</span> ..    <span class="hljs-comment"># 返回上级目录</span><br><span class="hljs-built_in">cd</span> ~     <span class="hljs-comment"># 返回家目录</span><br><br><span class="hljs-comment"># 创建目录</span><br><span class="hljs-built_in">mkdir</span> directory_name<br><br><span class="hljs-comment"># 删除文件/目录</span><br><span class="hljs-built_in">rm</span> file_name<br><span class="hljs-built_in">rm</span> -r directory_name    <span class="hljs-comment"># 递归删除目录</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="3-Vim编辑器使用"><a href="#3-Vim编辑器使用" class="headerlink" title="3. Vim编辑器使用"></a>3. Vim编辑器使用</h2><h3 id="3-1-安装Vim"><a href="#3-1-安装Vim" class="headerlink" title="3.1 安装Vim"></a>3.1 安装Vim</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> apt install vim<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-2-Vim基础操作"><a href="#3-2-Vim基础操作" class="headerlink" title="3.2 Vim基础操作"></a>3.2 Vim基础操作</h3><h4 id="3-2-1-模式切换"><a href="#3-2-1-模式切换" class="headerlink" title="3.2.1 模式切换"></a>3.2.1 模式切换</h4><ul>
+<li>普通模式（默认）：按<code>Esc</code>键</li>
+<li>插入模式：按<code>i</code>键</li>
+<li>可视模式：按<code>v</code>键</li>
+<li>命令模式：按<code>:</code>键</li>
+</ul>
+<h4 id="3-2-2-基本命令"><a href="#3-2-2-基本命令" class="headerlink" title="3.2.2 基本命令"></a>3.2.2 基本命令</h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs vim"># 文件操作<br>:<span class="hljs-keyword">w</span>          # 保存文件<br>:q          # 退出<br>:<span class="hljs-keyword">wq</span>         # 保存并退出<br>:q!         # 强制退出不保存<br><br># 光标移动<br>h           # 左移<br><span class="hljs-keyword">j</span>           # 下移<br><span class="hljs-keyword">k</span>           # 上移<br><span class="hljs-keyword">l</span>           # 右移<br><span class="hljs-number">0</span>           # 行首<br>$           # 行尾<br>gg          # 文件开头<br>G           # 文件末尾<br><br># 编辑操作<br>dd          # 删除当前行<br>yy          # 复制当前行<br><span class="hljs-keyword">p</span>           # 粘贴<br><span class="hljs-keyword">u</span>           # 撤销<br>Ctrl+r      # 重做<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-3-Vim配置"><a href="#3-3-Vim配置" class="headerlink" title="3.3 Vim配置"></a>3.3 Vim配置</h3><p>创建或编辑<code>~/.vimrc</code>文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim ~/.vimrc<br></code></pre></td></tr></table></figure>
+
+<p>常用配置示例：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-comment">&quot; 显示行号</span><br><span class="hljs-keyword">set</span> <span class="hljs-keyword">number</span><br><br><span class="hljs-comment">&quot; 语法高亮</span><br><span class="hljs-keyword">syntax</span> <span class="hljs-keyword">on</span><br><br><span class="hljs-comment">&quot; 自动缩进</span><br><span class="hljs-keyword">set</span> autoindent<br><br><span class="hljs-comment">&quot; 显示匹配的括号</span><br><span class="hljs-keyword">set</span> showmatch<br><br><span class="hljs-comment">&quot; 搜索时忽略大小写</span><br><span class="hljs-keyword">set</span> ignorecase<br><br><span class="hljs-comment">&quot; 设置缩进为4个空格</span><br><span class="hljs-keyword">set</span> tabstop=<span class="hljs-number">4</span><br><span class="hljs-keyword">set</span> <span class="hljs-built_in">shiftwidth</span>=<span class="hljs-number">4</span><br><span class="hljs-keyword">set</span> expandtab<br><br><span class="hljs-comment">&quot; 显示状态行</span><br><span class="hljs-keyword">set</span> laststatus=<span class="hljs-number">2</span><br><br><span class="hljs-comment">&quot; 设置主题</span><br><span class="hljs-keyword">colorscheme</span> desert<br></code></pre></td></tr></table></figure>
+
+<h2 id="4-开发环境配置"><a href="#4-开发环境配置" class="headerlink" title="4. 开发环境配置"></a>4. 开发环境配置</h2><h3 id="4-1-安装开发工具"><a href="#4-1-安装开发工具" class="headerlink" title="4.1 安装开发工具"></a>4.1 安装开发工具</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装编译工具</span><br><span class="hljs-built_in">sudo</span> apt install build-essential<br><br><span class="hljs-comment"># 安装Git</span><br><span class="hljs-built_in">sudo</span> apt install git<br><br><span class="hljs-comment"># 安装Python</span><br><span class="hljs-built_in">sudo</span> apt install python3 python3-pip<br><br><span class="hljs-comment"># 安装Node.js</span><br>curl -fsSL https://deb.nodesource.com/setup_lts.x | <span class="hljs-built_in">sudo</span> -E bash -<br><span class="hljs-built_in">sudo</span> apt install nodejs<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-2-配置Git"><a href="#4-2-配置Git" class="headerlink" title="4.2 配置Git"></a>4.2 配置Git</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 配置用户名和邮箱</span><br>git config --global user.name <span class="hljs-string">&quot;Your Name&quot;</span><br>git config --global user.email <span class="hljs-string">&quot;your.email@example.com&quot;</span><br><br><span class="hljs-comment"># 生成SSH密钥</span><br>ssh-keygen -t rsa -b 4096<br></code></pre></td></tr></table></figure>
+
+<h2 id="5-实用技巧"><a href="#5-实用技巧" class="headerlink" title="5. 实用技巧"></a>5. 实用技巧</h2><h3 id="5-1-WSL与Windows文件系统互访"><a href="#5-1-WSL与Windows文件系统互访" class="headerlink" title="5.1 WSL与Windows文件系统互访"></a>5.1 WSL与Windows文件系统互访</h3><ul>
+<li>Windows访问WSL文件：<code>\\wsl$\Ubuntu\</code></li>
+<li>WSL访问Windows文件：<code>/mnt/c/</code></li>
+</ul>
+<h3 id="5-2-Vim插件管理"><a href="#5-2-Vim插件管理" class="headerlink" title="5.2 Vim插件管理"></a>5.2 Vim插件管理</h3><p>推荐使用Vim插件管理器（如vim-plug）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装vim-plug</span><br>curl -fLo ~/.vim/autoload/plug.vim --create-dirs \<br>    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim<br></code></pre></td></tr></table></figure>
+
+<p>在<code>.vimrc</code>中添加插件：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">call</span> plug#begin(<span class="hljs-string">&#x27;~/.vim/plugged&#x27;</span>)<br>Plug <span class="hljs-string">&#x27;preservim/nerdtree&#x27;</span><br>Plug <span class="hljs-string">&#x27;vim-airline/vim-airline&#x27;</span><br>Plug <span class="hljs-string">&#x27;vim-airline/vim-airline-themes&#x27;</span><br><span class="hljs-keyword">call</span> plug#end()<br></code></pre></td></tr></table></figure>
+
+<p>安装插件：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">:PlugInstall<br></code></pre></td></tr></table></figure>
+
+<h2 id="6-常见问题解决"><a href="#6-常见问题解决" class="headerlink" title="6. 常见问题解决"></a>6. 常见问题解决</h2><ol>
+<li><p>WSL启动失败</p>
+<ul>
+<li>检查Windows功能是否启用</li>
+<li>重启WSL：<code>wsl --shutdown</code></li>
+<li>重置WSL：<code>wsl --unregister Ubuntu</code></li>
+</ul>
+</li>
+<li><p>Vim中文乱码</p>
+<ul>
+<li>在<code>.vimrc</code>中添加：</li>
+</ul>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">set</span> encoding=utf-<span class="hljs-number">8</span><br><span class="hljs-keyword">set</span> fileencoding=utf-<span class="hljs-number">8</span><br><span class="hljs-keyword">set</span> termencoding=utf-<span class="hljs-number">8</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>权限问题</p>
+<ul>
+<li>使用<code>sudo</code>执行需要权限的命令</li>
+<li>修改文件权限：<code>chmod</code></li>
+<li>修改文件所有者：<code>chown</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="7-进阶建议"><a href="#7-进阶建议" class="headerlink" title="7. 进阶建议"></a>7. 进阶建议</h2><ol>
+<li><p>使用WSL2而不是WSL1</p>
+<ul>
+<li>更好的性能</li>
+<li>完整的Linux内核</li>
+<li>更好的系统调用兼容性</li>
+</ul>
+</li>
+<li><p>配置WSL的默认版本</p>
+</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">wsl <span class="hljs-literal">--set-default-version</span> <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>使用Windows Terminal</p>
+<ul>
+<li>更好的终端体验</li>
+<li>多标签支持</li>
+<li>自定义主题</li>
+</ul>
+</li>
+<li><p>配置Vim为IDE</p>
+<ul>
+<li>使用插件增强功能</li>
+<li>配置代码补全</li>
+<li>设置代码格式化</li>
+</ul>
+</li>
+</ol>
+<p>通过以上配置，你可以在Windows系统中获得接近原生Linux的开发体验。如果遇到问题，欢迎在评论区讨论。 </p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/WSL/" class="print-no-link">#WSL</a>
+      
+        <a href="/tags/Ubuntu/" class="print-no-link">#Ubuntu</a>
+      
+        <a href="/tags/Vim/" class="print-no-link">#Vim</a>
+      
+        <a href="/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="print-no-link">#开发环境</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>WSL、Ubuntu和Vim使用指南</div>
+      <div>https://guoxiyao.github.io/2024/03/21/WSL-Ubuntu-Vim使用指南/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>归潇</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/04/02/%E5%BB%BA%E7%AB%99/" title="hexo建站经验">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">hexo建站经验</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"TIFbH2o8wLYC3b3RdX3QfH8j-gzGzoHsz","appKey":"hCEWC22rV5laMvFdlyyo9MgD","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+<div>
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("01/24/2025 01:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "🚀 for&nbsp"+dnum+"&nbspdays";//此次自定义显示内容
+      document.getElementById("times").innerHTML = hnum + "&nbsphr&nbsp" + mnum + "&nbspmin&nbsp" + snum + "&nbspsec";
+  }  //此次自定义显示内容
+  setInterval("createtime()",250);
+  </script>
+</div>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
